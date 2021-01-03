@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   skip_before_action :authorized, only: [:new, :create]
-
+  
   def index
     redirect_to '/users/#{current_user.id}'
   end

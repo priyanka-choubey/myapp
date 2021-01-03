@@ -1,18 +1,33 @@
-<% if logged_in? %>
-    <h1><%= current_user.username %></h1>
-<%end%>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<h1>Articles</h1>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-<ul>
-  <% @articles.each do |article| %>
-    <li>
-        <%= link_to article.title,article %>
-    </li>
-  <% end %>
-</ul>
+    <title>Articles</title>
+  </head>
+  <body>
 
-<%= link_to "New_Article", new_article_path %> 
-<% if logged_in? %> |
-<%= link_to "Log out", logout_path, method: "delete" %>
-<%end%>
+    <h1>Blogger</h1>
+
+    <ul>
+      <% @articles.each do |article| %>
+        <li>
+            <%= link_to article.title,article %> by <a href = "/users/<%= article.user.id %>"><%= article.user.username %></a>
+        </li>
+      <% end %>
+    </ul>
+ 
+    <% if logged_in? %> 
+      <h3><%= current_user.username %></h3>
+      <%= link_to "New_Article", new_article_path %>
+      <%= link_to "Log out", logout_path, method: "delete" %>
+    <% else %>
+      <a href = "/welcome"> Log in/ Sign Up </a>
+    <%end%>
+  </body>
+</html>

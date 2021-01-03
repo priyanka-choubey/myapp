@@ -20,6 +20,7 @@ class ArticlesController < ApplicationController
       @users= User.all
       @users.each do |user|
         if @article.body.include? "@"+(user.username)
+          UserMailer.tagged_email(user,@article,current_user).deliver_now
           @article.tags.create(user_id: user.id)
         end
       end
