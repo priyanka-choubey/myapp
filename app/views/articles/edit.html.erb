@@ -5,3 +5,6 @@
 <h1>Edit Article</h1>
 
 <%= render "form", article: @article%>
+<% if logged_in? %> |
+<%= link_to "Log out", logout_path, method: "delete" %>
+<%end%>
