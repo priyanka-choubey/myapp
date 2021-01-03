@@ -17,6 +17,12 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params.merge(user_id: current_user.id))
     if @article.save
+      @users= User.all
+      @users.each do |user|
+        if @article.body.include? "@"+(user.username)
+          @article.tags.create(user_id: user.id)
+        end
+      end
       redirect_to @article
     else
       render :new

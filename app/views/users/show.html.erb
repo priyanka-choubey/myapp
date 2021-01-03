@@ -1,5 +1,5 @@
 <h1><%= @user.username %></h1>
-
+<h2>blogs</h2>
 <ul>
     <% @articles = Article.where(:user_id == @user.id) %>
     <% @articles.each do |article|%>
@@ -12,4 +12,22 @@
             </li>
         <%end%>
     <%end%>
+</ul>
+
+<h2>Tagged in blogs</h2>
+
+<ul>
+    <% @tags = Tag.where(:user_id == @user.id) %>
+    <% @tags.each do |tag|%>
+        <% if tag.user == @user %>
+            <li> 
+                <h3><%= tag.article.title %></h3>
+
+                <p><%= tag.article.body %></p>
+
+            </li>
+        <%end%>
+    <%end%>
+</ul>
+
 
